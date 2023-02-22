@@ -1,6 +1,6 @@
 
 <template>
-    <div class="box">
+    <div class="box form">
       <div class="columns">
         <div
           class="column is-8"
@@ -26,6 +26,7 @@ import  Timer  from './Timer.vue'
 
 export default defineComponent({
     name: "FormNewTask",
+    emits: ['whenSaveTask'],
     components:{
         Timer
     },
@@ -37,10 +38,23 @@ export default defineComponent({
     
     methods: {
         endTask (timeElapsed: number): void {
+            this.$emit('whenSaveTask', {
+              durationInSeconds: timeElapsed,
+              description: this.description
+            })
             console.log('Task Time: ', timeElapsed)
-            console.log('Task Description');
+            console.log('Task Description:', this.description)
+
             this.description = ''
+            
         }
     }
 });
 </script>
+
+<style>
+.form {
+  color: var(--texto-primario);
+  background-color: var(--bg-primario);
+}
+</style>
